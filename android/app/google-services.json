@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845032290639",
+    "project_id": "dam-u4-asistencia",
+    "storage_bucket": "dam-u4-asistencia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845032290639:android:91bb2e566abacd5f99ad3a",
+        "android_client_info": {
+          "package_name": "com.example.dam_u4_proyecto2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845032290639-nj75vfrmqdfdilb2b35ou58r24rj6crl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJAUrJRJ1S01NsCJ8rIJ8wY4WSjwm9Qe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845032290639-nj75vfrmqdfdilb2b35ou58r24rj6crl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
