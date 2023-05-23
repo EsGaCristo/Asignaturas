@@ -11,7 +11,8 @@ class GetAsistencia extends StatefulWidget {
 class _GetAsistenciaState extends State<GetAsistencia> {
   @override
   Widget build(BuildContext context) {
-    final String argument = ModalRoute.of(context)!.settings.arguments as String;
+    String argument = ModalRoute.of(context)!.settings.arguments as String;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -26,30 +27,7 @@ class _GetAsistenciaState extends State<GetAsistencia> {
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (builder) {
-                            return AlertDialog(
-                              title: Text("ATENCION"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context);
-                                      await Navigator.pushNamed(
-                                          context, '/updateBitacora',
-                                          arguments: {
-                                            'arg1': snapshot.data?[index],
-                                            'arg2': argument,
-                                          });
-                                      setState(() {});
-                                    },
-                                    child: Text("ACTUALIZAR")),
-                              ],
-                            );
-                          });
-
-                    },
+                    onTap: () {},
                     child: ListTile(
                       title: Text("Fecha: "+ snapshot.data?[index]['fecha']),
                       subtitle: Text("Revisor: "+snapshot.data?[index]['revisor']),

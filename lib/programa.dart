@@ -10,7 +10,7 @@ class Programa extends StatefulWidget {
 
 class _ProgramaState extends State<Programa> {
   String selectedMonth = 'Enero';
-
+/*
   List<String> months = [
     'Enero',
     'Febrero',
@@ -24,63 +24,25 @@ class _ProgramaState extends State<Programa> {
     'Octubre',
     'Noviembre',
     'Diciembre'
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Autos Ittepic"),
+        title: Text("Asignaturas y asistencias"),
         actions: [
           IconButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await Navigator.pushNamed(
                   context,
-                  '/bitacoraVerificacion',
+                  '/consultas',
                 );
                 setState(() {});
               },
               icon: Icon(Icons.find_replace_outlined)),
-          IconButton(
-              onPressed: () async {
-                showDialog(
-                    context: context,
-                    builder: (builder) {
-                      return AlertDialog(
-                        title: Text("ATENCION"),
-                        actions: [
-                          DropdownButton<String>(
-                            value: selectedMonth,
-                            hint: Text('Selecciona un mes'),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedMonth = value!;
-                              });
-                            },
-                            items: months.map((month) {
-                              return DropdownMenuItem<String>(
-                                value: month,
-                                child: Text(month),
-                              );
-                            }).toList(),
-                          ),
-                          TextButton(
-                              onPressed: () async {
-                                Navigator.pop(context);
-                                await Navigator.pushNamed(
-                                  context,
-                                  '/bitacoraFecha',
-                                  arguments: selectedMonth,
-                                );
-                                setState(() {});
-                              },
-                              child: Text("Revisar Bitacoras"))
-                        ],
-                      );
-                    });
-              },
-              icon: Icon(Icons.date_range)),
+
         ],
       ),
       body: FutureBuilder(
@@ -142,10 +104,10 @@ class _ProgramaState extends State<Programa> {
                           });
                     },
                     child: ExpansionTile(
-                      title: Text(snapshot.data?[index]['materia']),
-                      subtitle: Text(snapshot.data?[index]['docente']),
-                      trailing: Text(snapshot.data?[index]['horario']),
-                      leading: Text(snapshot.data?[index]['salon']),
+                      title: Text("Materia: "+snapshot.data?[index]['materia']),
+                      subtitle: Text("Docente: "+snapshot.data?[index]['docente']),
+                      trailing: Text("Horario: "+snapshot.data?[index]['horario']),
+                      leading: Text("Salon: "+snapshot.data?[index]['salon']),
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(16),
@@ -160,6 +122,7 @@ class _ProgramaState extends State<Programa> {
                         ),
                       ],
                     ),
+
                   );
                   return Text(snapshot.data?[index]['placa']);
                 },
@@ -178,6 +141,10 @@ class _ProgramaState extends State<Programa> {
         },
         child: Icon(Icons.add),
       ),
+
+
+
+
     );
   }
 }

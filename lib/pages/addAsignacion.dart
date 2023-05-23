@@ -1,6 +1,7 @@
 import 'package:dam_u4_proyecto2/modelos/asignacion.dart';
 import 'package:dam_u4_proyecto2/services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddAsignacion extends StatefulWidget {
   const AddAsignacion({Key? key}) : super(key: key);
@@ -49,11 +50,43 @@ class _AddAsignacionState extends State<AddAsignacion> {
           SizedBox(
             height: 10,
           ),
-          TextField(
+
+          TextFormField(
             controller: horarioController,
             decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: "Horario"),
+              border: OutlineInputBorder(),
+              labelText: "Fecha",
+              suffixIcon: Icon(Icons.calendar_today),
+            ),
+            onTap: () async {
+              FocusScope.of(context).requestFocus(FocusNode()); // Quita el foco del teclado
+              final DateTime? selectedDateTime = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+              );
+              if (selectedDateTime != null) {
+                final TimeOfDay? selectedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (selectedTime != null) {
+                  final DateTime combinedDateTime = DateTime(
+                    selectedDateTime.year,
+                    selectedDateTime.month,
+                    selectedDateTime.day,
+                    selectedTime.hour,
+                    selectedTime.minute,
+                  );
+                  horarioController.text = DateFormat('dd/MM/yyyy HH:mm').format(combinedDateTime);
+                }
+              }
+            },
+            readOnly: true, // Evita que el usuario escriba la fecha manualmente
           ),
+
+
           SizedBox(
             height: 10,
           ),

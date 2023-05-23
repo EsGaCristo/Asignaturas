@@ -1,6 +1,7 @@
 import 'package:dam_u4_proyecto2/pages/getAsistencia.dart';
 import 'package:dam_u4_proyecto2/pages/addAsignacion.dart';
 import 'package:dam_u4_proyecto2/pages/addAsistencia.dart';
+import 'package:dam_u4_proyecto2/pages/getConsultas.dart';
 import 'package:dam_u4_proyecto2/pages/updateAsignacion.dart';
 import 'package:dam_u4_proyecto2/programa.dart';
 import 'package:dam_u4_proyecto2/services/firebase_service.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/update':(context) => UpdateAsignacion(),
         '/asistencia':(context)=>GetAsistencia(),
         '/addAsistencia':(context)=> AddAsistencia(),
+        '/consultas':(context)=> GetConsultas(),
       },
 
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),

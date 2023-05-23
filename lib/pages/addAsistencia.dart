@@ -14,6 +14,8 @@ class _AddAsistenciaState extends State<AddAsistencia> {
   final revisorController = TextEditingController();
   final fechaController = TextEditingController();
   final idasistenciaController = TextEditingController();
+  final horaController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _AddAsistenciaState extends State<AddAsistencia> {
             keyboardType: TextInputType.number,
             controller: revisorController,
             decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: "Id bitacora"),
+                border: OutlineInputBorder(), labelText: "Revisor"),
           ),
           SizedBox(
             height: 10,
@@ -52,17 +54,28 @@ class _AddAsistenciaState extends State<AddAsistencia> {
               suffixIcon: Icon(Icons.calendar_today),
             ),
             onTap: () async {
-              FocusScope.of(context)
-                  .requestFocus(FocusNode()); // Quita el foco del teclado
-              final selectedDate = await showDatePicker(
+              FocusScope.of(context).requestFocus(FocusNode()); // Quita el foco del teclado
+              final DateTime? selectedDateTime = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
               );
-              if (selectedDate != null) {
-                fechaController.text =
-                    DateFormat('dd/MM/yyyy').format(selectedDate);
+              if (selectedDateTime != null) {
+                final TimeOfDay? selectedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (selectedTime != null) {
+                  final DateTime combinedDateTime = DateTime(
+                    selectedDateTime.year,
+                    selectedDateTime.month,
+                    selectedDateTime.day,
+                    selectedTime.hour,
+                    selectedTime.minute,
+                  );
+                  fechaController.text = DateFormat('dd/MM/yyyy HH:mm').format(combinedDateTime);
+                }
               }
             },
             readOnly: true, // Evita que el usuario escriba la fecha manualmente

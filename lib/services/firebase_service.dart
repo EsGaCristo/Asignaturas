@@ -78,6 +78,102 @@ Future<List> getAsistencia(String uid) async {
   await Future.delayed(const Duration(seconds: 1));
   return asistencias;
 }
+
+///*** Consultas ***//
+
+Future<List> getAsistenciaPorRevisor(String revisor) async {
+  List asistencias = [];
+  try {
+    QuerySnapshot querySnapshot = await db
+        .collection("asignacion")
+        .where('Asistencia', isNull: false)
+        .get();
+
+    List<DocumentSnapshot> documents = querySnapshot.docs;
+    for (var document in documents) {
+      Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+      if (data != null && data['Asistencia'] is Map<String, dynamic>) {
+        Map<String, dynamic> asistenciaData = data['Asistencia'] as Map<String, dynamic>;
+        asistenciaData.forEach((id, asistencia) {
+          if (asistencia['revisor'] == revisor) {
+            asistencias.add(asistencia);
+          }
+        });
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
+  //asistencias.forEach((element) {print(element);});
+  return asistencias;
+}
+
+
+
+Future<List> getAsistenciaPorFechas(String fechaInicio, String fechaFin) async {
+  List asistencias = [];
+  try {
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+    DateTime parsedFechaInicio = dateFormat.parse(fechaInicio);
+    DateTime parsedFechaFin = dateFormat.parse(fechaFin);
+
+    QuerySnapshot querySnapshot = await db
+        .collection("asignacion")
+        .where('Asistencia', isNull: false)
+        .get();
+
+    List<DocumentSnapshot> documents = querySnapshot.docs;
+    for (var document in documents) {
+      Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+      if (data != null && data['Asistencia'] is Map<String, dynamic>) {
+        Map<String, dynamic> asistenciaData = data['Asistencia'] as Map<String, dynamic>;
+        asistenciaData.forEach((id, asistencia) {
+          DateTime asistenciaFecha = dateFormat.parse(asistencia['fecha']);
+          if (asistenciaFecha.isAfter(parsedFechaInicio) && asistenciaFecha.isBefore(parsedFechaFin)) {
+            asistencias.add(asistencia);
+          }
+        });
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
+  return asistencias;
+}
+
+Future<void> getAsistenciaPorFechasEdificio(String fechaInicio, String fechaFin, String edificio) async {
+  List asistencias = [];
+  try {
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+    DateTime parsedFechaInicio = dateFormat.parse(fechaInicio);
+    DateTime parsedFechaFin = dateFormat.parse(fechaFin);
+
+    QuerySnapshot querySnapshot = await db
+        .collection("asignacion")
+        .where('Asistencia', isNull: false)
+        .where('edificio',isEqualTo: edificio)
+        .get();
+
+    List<DocumentSnapshot> documents = querySnapshot.docs;
+    for (var document in documents) {
+      Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+      if (data != null && data['Asistencia'] is Map<String, dynamic>) {
+        Map<String, dynamic> asistenciaData = data['Asistencia'] as Map<String, dynamic>;
+        asistenciaData.forEach((id, asistencia) {
+          DateTime asistenciaFecha = dateFormat.parse(asistencia['fecha']);
+          if (asistenciaFecha.isAfter(parsedFechaInicio) && asistenciaFecha.isBefore(parsedFechaFin)) {
+            asistencias.add(asistencia);
+            print(asistencia);
+          }
+        });
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
+  //return asistencias;
+}
+
 /***
 /*** Obtencion de bitacoras por mes  ***/
 Future<List> getBitacorasPorMes(String mes) async {
@@ -144,6 +240,8 @@ Future<List<dynamic>?> getBitacorasFechaverificacion() async {
   return bitacoras;
 }
 ***/
+
+
 /*** Agregar Asistencias ***/
 Future<int> addAsistencia(String uid, Asistencia asistencia) async {
   String idB = asistencia.idasistencia;
