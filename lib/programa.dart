@@ -107,7 +107,14 @@ class _ProgramaState extends State<Programa> {
                       title: Text("Materia: "+snapshot.data?[index]['materia']),
                       subtitle: Text("Docente: "+snapshot.data?[index]['docente']),
                       trailing: Text("Horario: "+snapshot.data?[index]['horario']),
-                      leading: Text("Salon: "+snapshot.data?[index]['salon']),
+                      leading: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.school),
+                          SizedBox(height: 10,),
+                          Text("Salon: "+snapshot.data?[index]['salon'])
+                        ],
+                      ),
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(16),

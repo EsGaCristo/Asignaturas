@@ -55,36 +55,30 @@ class _AddAsignacionState extends State<AddAsignacion> {
             controller: horarioController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Fecha",
-              suffixIcon: Icon(Icons.calendar_today),
+              labelText: "Hora",
+              suffixIcon: Icon(Icons.access_time),
             ),
             onTap: () async {
               FocusScope.of(context).requestFocus(FocusNode()); // Quita el foco del teclado
-              final DateTime? selectedDateTime = await showDatePicker(
+              final TimeOfDay? selectedTime = await showTimePicker(
                 context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
+                initialTime: TimeOfDay.now(),
               );
-              if (selectedDateTime != null) {
-                final TimeOfDay? selectedTime = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
+              if (selectedTime != null) {
+                final DateTime now = DateTime.now();
+                final DateTime combinedDateTime = DateTime(
+                  now.year,
+                  now.month,
+                  now.day,
+                  selectedTime.hour,
+                  selectedTime.minute,
                 );
-                if (selectedTime != null) {
-                  final DateTime combinedDateTime = DateTime(
-                    selectedDateTime.year,
-                    selectedDateTime.month,
-                    selectedDateTime.day,
-                    selectedTime.hour,
-                    selectedTime.minute,
-                  );
-                  horarioController.text = DateFormat('dd/MM/yyyy HH:mm').format(combinedDateTime);
-                }
+                horarioController.text = DateFormat('HH:mm').format(combinedDateTime);
               }
             },
-            readOnly: true, // Evita que el usuario escriba la fecha manualmente
+            readOnly: true, // Evita que el usuario escriba la hora manualmente
           ),
+
 
 
           SizedBox(

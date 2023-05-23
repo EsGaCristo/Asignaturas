@@ -32,10 +32,10 @@ class _GetConsultasState extends State<GetConsultas> {
       body: _buildPage(_indice),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_rounded), label: "Rango de fechas"),
-          BottomNavigationBarItem(icon: Icon(Icons.query_stats_sharp), label: "Rango de fechas y edificio"),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box_outlined), label: "Revisor"),
-          BottomNavigationBarItem(icon: Icon(Icons.reset_tv), label: "Atras"),
+          BottomNavigationBarItem(icon: Icon(Icons.date_range), label: "Rango de fechas"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_outlined), label: "Rango de fechas y edificio"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_box), label: "Revisor"),
+          BottomNavigationBarItem(icon: Icon(Icons.arrow_back_ios), label: "Atras"),
         ],
         backgroundColor: Colors.blueGrey,
         currentIndex: _indice,
